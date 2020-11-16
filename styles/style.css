@@ -1,0 +1,105 @@
+@font-face {
+  font-family: "Clicker Script";
+  src: url("../ressources/polices/ClickerScript-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Santana";
+  src: url("../ressources/polices/Santana.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Amatic";
+  src: url("../ressources/polices/Amatic.ttf") format("truetype");
+}
+@font-face {
+  font-family: "advent";
+  src: url("../ressources/police/advent.otf") format("opentype");
+}
+/*reset-initialise*/
+html {
+  font-size: 62.5%;
+}
+
+*, ::before, ::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  width: 100%;
+  background: #f1f1f1;
+  font-family: "advent", "arial";
+  font-size: 2rem;
+}
+
+/* Header */
+.large-header {
+  height: 700px;
+  width: 100%;
+  background-image: url("../ressources/pictures/moutons_acceuil_sbre.JPG");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.main-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  color: #f1f1f1;
+  text-align: center;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  font-family: "Clicker Script", cursive;
+  font-weight: normal;
+  font-size: 7rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.main-title::before {
+  content: "";
+  width: 60rem;
+  height: 60rem;
+  background: url(../ressources/pictures/deco.svg) no-repeat center center;
+  background-size: cover;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  z-index: -1;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.main-subtitle {
+  position: absolute;
+  font-family: "Santana", cursive;
+  font-weight: normal;
+  color: #f1f1f1;
+  font-size: 4rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+.main-subtitle.p1 {
+  top: 75%;
+  left: 70%;
+}
+.main-subtitle.p2 {
+  top: 85%;
+  left: 75%;
+}
+.main-subtitle #signing {
+  font-family: "Amatic", cursive;
+  font-weight: normal;
+}
+
+.about {
+  height: 700px;
+  width: 100%;
+}
+
+/*# sourceMappingURL=style.css.map */

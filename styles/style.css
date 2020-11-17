@@ -1,3 +1,4 @@
+@charset "UTF-8";
 @font-face {
   font-family: "Clicker Script";
   src: url("../ressources/polices/ClickerScript-Regular.ttf") format("truetype");
@@ -12,7 +13,7 @@
 }
 @font-face {
   font-family: "advent";
-  src: url("../ressources/police/advent.otf") format("opentype");
+  src: url("../ressources/polices/advent.otf") format("opentype");
 }
 /*reset-initialise*/
 html {
@@ -60,7 +61,6 @@ body {
   font-size: 7rem;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
-
 .main-title::before {
   content: "";
   width: 60rem;
@@ -97,9 +97,164 @@ body {
   font-weight: normal;
 }
 
-.about {
-  height: 700px;
+#navigation {
   width: 100%;
+  background: #f1f1f1;
+  height: 80px;
+  align-items: center;
+  box-shadow: 0 3px 10px -1px #f1f1f1;
+  z-index: 2;
+}
+#navigation ul {
+  display: flex;
+  justify-content: center;
+  margin: 10px auto;
+}
+#navigation ul li {
+  list-style: none;
+  padding: 0 15px;
+}
+#navigation ul li a {
+  text-decoration: none;
+  font-family: "Amatic";
+  font-size: 4rem;
+  color: #1d1d1d;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.5s ease-in-out;
+}
+#navigation ul li a:hover {
+  font-size: 4.5rem;
+  color: goldenrod;
+}
+
+/* présentation*/
+#about {
+  height: 900px;
+  width: 100%;
+}
+#about .container {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  display: grid;
+  grid-template: 500px 400px/repeat(2, 50%);
+}
+#about .container .panneauGauche {
+  grid-area: 1/1/2/2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+#about .container .panneauGauche .frame {
+  width: 30rem;
+  height: 30rem;
+  margin: 20px;
+}
+#about .container .panneauGauche .frame .imgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+}
+#about .container .panneauGauche .frame .imgContainer img {
+  width: 100%;
+  height: auto;
+}
+#about .container .panneauGauche .frame::before {
+  content: "";
+  width: 33rem;
+  height: 33rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  -webkit-transform: translate3d(-50%, -50%, 0);
+  transform: translate3d(-50%, -50%, 0);
+  z-index: -1;
+  border: 1px dashed #333;
+}
+#about .container .panneauDroit {
+  grid-area: 1/2/2/3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#about .container .panneauDroit .textContainer {
+  width: 70%;
+  padding: 20px;
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+#about .container .panneauDroit .textContainer h2 {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+#about .container .panneauDroit .textContainer h3 {
+  margin: 10px 0;
+}
+#about .container .panneauDroit .textContainer p {
+  margin: 5px 0;
+}
+#about .container .panneauBas {
+  grid-area: 2/1/3/3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  display: block;
+}
+#about .container .panneauBas .composition {
+  width: 600px;
+  position: relative;
+  margin: 60px auto 0;
+}
+#about .container .panneauBas .composition .composition_photo {
+  width: 55%;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+  position: absolute;
+  z-index: 10;
+  transition: all 0.2s;
+  outline-offset: 2rem;
+  overflow: hidden;
+}
+#about .container .panneauBas .composition .composition_photo.composition_photo--1 {
+  left: 0;
+  top: -2rem;
+}
+#about .container .panneauBas .composition .composition_photo.composition_photo--2 {
+  right: 0;
+  top: 2rem;
+}
+#about .container .panneauBas .composition .composition_photo.composition_photo--3 {
+  left: 20%;
+  top: 10rem;
+}
+#about .container .panneauBas .composition .composition_photo:hover {
+  outline: 1.5rem solid #c0b283;
+  transform: scale(1.05) translateY(-0.5rem);
+  z-index: 30;
+}
+#about .container .panneauBas .composition:hover .composition_photo:not(:hover) {
+  transform: scale(0.95);
+}
+
+footer {
+  width: 100%;
+  height: 100px;
+  background: #1d1d1d;
+  color: #f1f1f1;
+  text-align: center;
+  padding: 40px 0;
+}
+footer .copyDate {
+  font-size: 2rem;
 }
 
 /*# sourceMappingURL=style.css.map */

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}<title> Contact du soleil dans ma palette</title> {%endblock %}
+
+{% block content %}
+
+  <main id="contact">
+
+    <h1>Vous pouvez me contacter</h1>
+    
+    <p>à l'adresse : <a href="mailto:naddessine@outlook.com">
+      naddessine@outlook.com
+    </a></p>
+    
+    
+    <a href="{% url 'home' %}">Retour au site</a>
+    <!-- <form method="post">
+      {% csrf_token %}
+      {{ form }}
+      <div class="form-actions">
+        <button type="submit">Envoyer</button>
+      </div>
+    </form> -->
+  </main>
+  
+{% endblock content %}

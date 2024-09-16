@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+
+{% block title %} <title>{{ image.title }}</title> {% endblock %}
+
+{% block content %}
+
+    <main id="gallery-detail">
+
+        <div class="image-container">
+            {% if request.user.is_authenticated %}
+            {% include "website/tools.html" %}
+            {% endif %}
+            <h1>{{ image.title }}</h1>
+            <img src="{{ image.image.url }}" alt="{{ image.alt}}">
+            <div class="content">
+                <p class="legend">{{ image.content|safe }}</p>
+            </div>
+        </div>
+
+        <ul class="item-nav">
+
+            {% if previous_image %}
+                <li><a href="{% url 'gallery:detail' slug=first_image.slug %}">Début</a>
+            {% else %}
+                <li disabled>Début</button>
+            {% endif %}
+                </li>
+
+            {% if previous_image %}
+                <li><a href="{% url 'gallery:detail' slug=previous_image.slug %}">&laquo; Précédente</a>
+            {% else %}
+                <li disabled>&laquo; Précédente</button>
+            {% endif %}
+            </li>
+
+            <li><a href="{% url 'gallery:home' %}">Retour à la gallerie</a></li>
+
+            {% if next_image %}
+                <li><a href="{% url 'gallery:detail' slug=next_image.slug %}">Suivante &raquo</a>
+            {% else %}
+                <li disabled>Suivante &raquo;</button>
+            {% endif %}
+            </li>
+
+            {% if next_image %}
+                <li><a href="{% url 'gallery:detail' slug=last_image.slug %}">Dernière</a>
+            {% else %}
+                <li disabled>Dernière</button>
+            {% endif %}
+            </li>
+
+        </ul>
+    </main>
+
+{% endblock %}

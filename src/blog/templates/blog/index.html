@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %} <title>Du soleil dans ma palette : le blog</title> {% endblock %}
+
+{% block header %}<div class="blog-header" id="blog-header"></div> {% endblock %}
+{% block content %}
+    <main id="blog">
+
+        <h1>Journal d'atelier du soleil dans ma palette</h1>
+
+
+
+        {% for post in page_obj %}
+        <article>
+            {% if request.user.is_authenticated %}
+            {% include "website/tools.html" %}
+            {% endif %}
+            <h2>{{ post.title }}</h2>
+
+            <p class="subtitle">Publié par <span class="author">{{ post.author_or_default }}</span> dans <span class="category">{{ post.category.all.0 }}</span> le {{ post.created_on|date:'j F Y' }}</p>
+
+            <div class="content-container">
+                <img src="{{ post.thumbnail.url }}" alt="{{ post.alt}}">
+                <p>{{ post.chapo|safe }}</p>
+            </div>
+
+            <div class="comment-icon">
+                <img src="{% static 'img/comment_icon.png' %}" alt="">
+                {% if post.get_comments %}
+                <p>{{ post.get_comments.count }}</p>
+                {% endif %}
+            </div>
+
+
+            <form action="{% url 'blog:post' slug=post.slug %}">
+                <button>Lire l'article...</button>
+            </form>
+
+        </article>
+        {% endfor %}
+<!--TODO mettre la même pagination que galerie -->
+        <div class="pagination">
+            <p class="current">Page {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}</p>              </p>
+            <ul class="step-links">
+                {% if page_obj.has_previous %}
+
+                    <li><a href="?page={{ page_obj.previous_page_number }}">« Précédent</a></li>
+                    <li><a href="?page=1">1ère</a></li>
+                {% endif %}
+<!--&laquo; &raquo;-->
+                {% if page_obj.has_next %}
+                <li><a href="?page={{ page_obj.next_page_number }}">Suivante »</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </main>
+
+{% endblock %}

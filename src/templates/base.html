@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block title %}{% endblock %}
+    <!-- <link rel="shortcut icon" type="image/png" href="{% static 'images/favicon.png' %}" > -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.min.css'%}" />
+
+</head>
+<body>
+    <header id="acceuil">
+
+        {% block header %}{% endblock %}
+
+        <nav class="main-nav">
+            <div class="hamburger-btn">
+                <div class="ligneUnique"></div>
+            </div>
+            <ul>
+                <li><a href="{% url 'home' %}">Acceuil</a></li>
+                <li><a href="{% url 'blog:home' %}">Journal d'Atelier</a></li>
+                <li><a href="{% url 'gallery:home' %}">Galerie</a></li>
+                {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'admin:index' %}">Administration</a></li>
+                {% endif %}
+
+            </ul>
+        </nav>
+     </header>
+
+    {% block content %}{% endblock %}
+
+
+
+    <footer>
+        <div class="social-container">
+
+            <a href="https://www.facebook.com/naddessine" class="icon">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/nad_dessine/" class="icon">
+
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="{% url 'sendemail:contact' %}" class="icon">
+
+                <i class="fa-solid fa-envelope"></i>
+            </a>
+
+        </div>
+        <p>Made with <a href="{% url 'admin:login' %}">&#9825;</a> by NAD &copy; | 2024 </p>
+    </footer>
+    <script src="{% static 'scripts/script_navigation.js' %}"></script>
+    {% block script %}{% endblock script %}
+</body>
+</html>

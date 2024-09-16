@@ -1,0 +1,8 @@
+venv/
+src/media/
+__pycache__/
+.vscode/
+scr/static/
+db.sqlite3
+fixtures/
+.env

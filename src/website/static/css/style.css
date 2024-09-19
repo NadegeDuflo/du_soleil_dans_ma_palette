@@ -515,13 +515,15 @@ footer {
       top: 90%;
       left: 50%;
       transform: translate(-50%, -50%);
-      transition: 0.5s ease-in-out; }
+      transition: 0.5s ease-in-out;
+      opacity: 0.5; }
     #about .reel-slide .sunrise {
       position: absolute;
       top: 15%;
       left: 50%;
       transform: translate(-50%, -50%);
-      opacity: 0.5; }
+      opacity: 1;
+      -shadow: var(--bright); }
     #about .reel-slide .reel-text {
       position: absolute;
       bottom: 0px;

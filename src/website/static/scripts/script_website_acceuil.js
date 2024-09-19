@@ -1,4 +1,3 @@
-
 // Slideshow
 
 const slideshowImages = document.querySelectorAll(".slideshow-images-container .slide-view");
@@ -44,10 +43,6 @@ let currentIndex;
 
 reelText.forEach(dot => dot.addEventListener("mouseenter", sunrise));
 reelText.forEach(dot => dot.addEventListener("mouseleave", sunset));
-
-// reelText.addEventListener("mouseenter",()=>{
-//   sun.classList.add("sunrise")
-// });
 
 function sunrise(e){
   if(e){

@@ -9,11 +9,4 @@ btnHamburger.addEventListener("click", toggleNav)
 
 function toggleNav(){
     nav.classList.toggle("active");
-    // if(ligneUnique.style.background.includes("rgba(255,255,255,0)")){
-    //     btnHamburger.ariaExpanded = true;
-    // }
-    // else{
-    //     btnHamburger.ariaExpanded = false;
-    // }
-  
 }

@@ -67,7 +67,6 @@ class BlogPostDetail(DetailView, FormView):
         return queryset.filter(published=True)
 
     def get_next(self, current_object_date):
-        print(self.get_queryset().order_by('-created_on').filter(created_on__lt=current_object_date))
         next_object = self.get_queryset().order_by('-created_on').filter(created_on__lt=current_object_date).first()
         return next_object if next_object else None
 

@@ -1103,7 +1103,7 @@ article {
 #blog-detail article .comment-container .active-comment {
   display: block; }
 #blog-detail article .comment-container form {
-  display: none; }
+  display: block; }
   #blog-detail article .comment-container form #id_content_comment, #blog-detail article .comment-container form #id_author_comment {
     padding: 5px; }
 

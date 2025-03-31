@@ -1,6 +1,7 @@
 from io import BytesIO
 from django.core.files.uploadedfile import SimpleUploadedFile
 from PIL import Image
+import random
 
 def has_changed(instance, field, manager='objects'):
         """Returns true if a field has changed in a model
@@ -28,3 +29,11 @@ def resize_img(image, size):
     image.save(temp, 'jpeg')
     temp.seek(0)
     return SimpleUploadedFile('temp', temp.read())
+
+
+def antispam():
+    spam_questions = (('La nuit, tous les chats sont ', 'gris'), ('Un zèbre est noir et ', 'blanc'), ('La couleur du coquelicot est ', 'rouge')) 
+    i = random.randint(0, len(spam_questions)-1)
+    spam_question  = spam_questions[i][0]
+    spam_response = spam_questions[i][1]
+    return (spam_question, spam_response )

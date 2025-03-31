@@ -1,14 +1,20 @@
 import os
-from django.http import request
-from django.urls import reverse_lazy, reverse
+import random
 
-from django.views.generic import ListView, DetailView, CreateView, FormView, DeleteView, UpdateView
+from django.http import request
+from django.shortcuts import redirect
+from django.urls import reverse_lazy, reverse
+from django.views.generic import ListView, DetailView, DeleteView, FormView
+from django.views.generic.edit import FormMixin
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
-from blog.form import CommentForm, AnswerForm
-from blog.models import BlogPost, Comment, CommentAnswer
+
+from blog.form import CommentForm, ReplyForm
+from blog.models import BlogPost, Comment, Reply
 from website import settings
+
+from _utils import antispam
 
 
 class BlogHome(ListView):
@@ -24,42 +30,62 @@ class BlogHome(ListView):
         return queryset.filter(published=True)
 
 
-class BlogPostDetail(DetailView, FormView):
+class BlogPostDetail(DetailView):
     model = BlogPost
     template_name = "blog/detail.html"
     context_object_name = "post"
+    spam_question_reponse = antispam()
     form_class = CommentForm
-    #comment_form = CommentForm
-    #answer_form = AnswerForm
-
-
-    #def post(self):
-
-        #return print(self.request.POST)
+    second_form_class = ReplyForm
+    
+       
+    def post(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        form = self.form_class(self.request.POST, instance = self.object)
+        form2 = self.second_form_class(self.request.POST, instance=self.object)
+        
+            
+        if "submit_comment" in self.request.POST:
+            if form.is_valid():
+                return self.form_valid(form)
+            else:
+                return self.form_invalid(form)
+        
+        if "submit_reply" in self.request.POST:
+            if form2.is_valid():
+                return self.form_valid(form2)
+            else:
+                return self.form_invalid(form2)
+       
+    
 
     def get_success_url(self):
         return self.request.META.get('HTTP_REFERER')
 
     def form_valid(self, form):
-        #print(form)
-        #print(form.cleaned_data)
-        #print(self.request.POST)
-
-        if "comment-btn" in self.request.POST:
-            form.instance.post = self.get_object()
-            comment_data = form.cleaned_data
-            comment = Comment(post=form.instance.post, author_comment=comment_data["author_comment"], content_comment=comment_data["content_comment"])
-            comment.save()
-
-        if "answer-btn" in self.request.POST:
-            answer_data = form.cleaned_data
-            answer = CommentAnswer(comment=answer_data["comment"], author_answer=answer_data["author_answer"], content_answer=answer_data["content_answer"])
-            answer.save()
-
-
-        return super().form_valid(form)
+      
+         
+        if self.request.POST['sp-mail'] == '' and self.request.POST['sp-question'] == self.spam_question_reponse[1]:
+            
+            if "submit_comment" in self.request.POST:
+                form.instance.post = self.get_object()
+                comment_data = form.cleaned_data
+                comment = Comment(post=form.instance.post, author_comment=comment_data["author_comment"], content_comment=comment_data["content_comment"])
+                comment.save()
+                    
+                    
+            if "submit_reply" in self.request.POST:
+                reply_data = form.cleaned_data
+                reply = Reply(comment= Comment.objects.get(pk=int(self.request.POST['comment'])), author_answer=reply_data["author_answer"], content_answer=reply_data["content_answer"])
+                reply.save()
 
 
+        return redirect(self.get_success_url())
+
+    def form_invalid(self, form):
+        context = self.get_context_data()
+        return self.render_to_response(context)
+    
     def get_queryset(self):
         queryset = super().get_queryset()
         if self.request.user.is_authenticated:
@@ -78,11 +104,12 @@ class BlogPostDetail(DetailView, FormView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        #context["answer_form"] = self.answer_form()
-        #context["comment_form"] = self.comment_form()
         current_object_date = self.object.created_on
         context['next_post'] = self.get_next(current_object_date)
         context['previous_post'] = self.get_previous(current_object_date)
+        context['spam_question'] = self.spam_question_reponse[0]
+        context['form'] = self.form_class()
+        context['form2'] = self.second_form_class()
 
         return context
     

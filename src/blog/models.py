@@ -123,11 +123,11 @@ class Comment(models.Model):
         return f'{self.author_comment} - {self.content_comment[:8]} statut : {self.status}'
 
     def get_answers(self):
-        return self.answers.exclude(status=CommentAnswer.STATUS_HIDDEN)
+        return self.answers.exclude(status=Reply.STATUS_HIDDEN)
 
 
 
-class CommentAnswer(models.Model):
+class Reply(models.Model):
     STATUS_VISIBLE = 'visible'
     STATUS_HIDDEN = 'hidden'
     STATUS_MODERATED = 'moderated'

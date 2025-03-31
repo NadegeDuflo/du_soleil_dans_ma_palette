@@ -1,7 +1,7 @@
 
 from django.contrib import admin
 
-from blog.models import BlogPost, Category, Comment, CommentAnswer
+from blog.models import BlogPost, Category, Comment, Reply
 
 
 class BlogPostAdmin(admin.ModelAdmin):
@@ -51,11 +51,11 @@ class CommentAdmin(admin.ModelAdmin):
         "status",
     )
     def answers_count(self, comment):
-        return len(CommentAnswer.objects.filter(comment=comment))
+        return len(Reply.objects.filter(comment=comment))
 
     answers_count.short_description = "Réponses"
 
-class CommentAnswerAdmin(admin.ModelAdmin):
+class ReplyAdmin(admin.ModelAdmin):
     list_display = (
         "comment",
         "author_answer",
@@ -71,4 +71,4 @@ class CommentAnswerAdmin(admin.ModelAdmin):
 admin.site.register(BlogPost, BlogPostAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Comment, CommentAdmin)
-admin.site.register(CommentAnswer, CommentAnswerAdmin)
+admin.site.register(Reply, ReplyAdmin)

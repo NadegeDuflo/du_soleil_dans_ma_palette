@@ -36,6 +36,22 @@
                         {% else %}
                             <p>{{ comment.content_comment }}</p>
                         {% endif %}
+                        <button>Répondre...</button>
+                        <form method="POST" class="reply">
+                            {% csrf_token %}
+                            <label for="sp-mail"></label>
+                            <input class="sp-mail" name="sp-mail"
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                                placeholder="nom@domaine.com">
+                            <input type="hidden" name="comment" value= "{{ comment.id }}">
+                            <h6>Répondre à {{ comment.author_comment }}</h6> 
+                                            
+                            {{ form2.as_p}}
+                
+                            <span>{{ spam_question }} </span> <input class = "sp-question" name= "sp-question" required="true"><br>
+                
+                            <input type="submit" value="Envoyer votre réponse" name="submit_reply">
+                        </form>
                         {% if comment.get_answers %}
                             <ul>
                                 {% for answer in comment.get_answers %}
@@ -55,10 +71,21 @@
                 <svg width="800px" height="800px" viewBox="0 0 24 24" xmlns="" id="chat-alt-3" class="icon glyph"><path d="M19.91,16.51A8.45,8.45,0,0,0,22,11c0-5-4.49-9-10-9S2,6,2,11s4.49,9,10,9a10.9,10.9,0,0,0,3-.41l4.59,2.3A.91.91,0,0,0,20,22a1,1,0,0,0,.62-.22,1,1,0,0,0,.35-1ZM8,12a1,1,0,1,1,1-1A1,1,0,0,1,8,12Zm4,0a1,1,0,1,1,1-1A1,1,0,0,1,12,12Zm4,0a1,1,0,1,1,1-1A1,1,0,0,1,16,12Z" ></path></svg>
             </h4>
             <form method="POST">
-            {% csrf_token %}
-            {{ form }}
-                <input type="submit" value="Commenter" name="comment-btn">
+                {% csrf_token %}
+                <label for="sp-mail"></label>
+                <input class="sp-mail" name="sp-mail"
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                    placeholder="nom@domaine.com">
+
+                {{ form.as_p }}
+
+                <span>{{ spam_question }} </span> <input class = "sp-question" name= "sp-question" required="true"><br>
+
+                <input type="submit" value="Commenter" name="submit_comment">
             </form>
+            
+
+            
 
         </div>
 

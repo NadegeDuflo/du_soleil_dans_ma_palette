@@ -1,49 +1,53 @@
 from django import forms
 
-from blog.models import Comment, CommentAnswer
+from blog.models import Comment, Reply
 
-from django_recaptcha.fields import ReCaptchaField
-from django_recaptcha.widgets import ReCaptchaV2Checkbox
 
 
 class CommentForm(forms.ModelForm):
-    #captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
+    #edit_comment = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     class Meta:
         model = Comment
         fields = [
             "author_comment",
             "content_comment",
             ]
-        labels = {"author_comment": "Votre nom",
-                  "content_comment": "Votre commentaire"}
+        labels = {"author_comment": "",
+                  "content_comment": ""}
         widgets = {
             "content_comment": forms.Textarea(attrs={
                 #'class' : 'ma-class'
-                'row': 4,
+                'rows': 4,
                 'cols': 70,
                 'placeholder': 'Laisser votre commentaire...',
             })
         }
 
-class AnswerForm(forms.ModelForm):
-    #captcha = ReCaptchaField(widget=ReCaptchaV2Checkbox())
+class ReplyForm(forms.ModelForm):
+    #edit_comment_answer = forms.BooleanField(widget=forms.HiddenInput, initial=True)
     class Meta:
-        model = CommentAnswer
+        model = Reply
         fields = [
-            "comment",
+            #"comment",
             "author_answer",
             "content_answer",
         ]
-        labels = {"comment": "A qui ?",
-                  "author_answer": "Votre nom",
-                  "content_answer": "Votre réponse"
+        labels = {"comment": "",
+                  "author_answer": "",
+                  "content_answer": ""
         }
 
         widgets = {
+            "comment": forms.Select(attrs={
+                #'value' : "{{comment.id}}"
+                }),
+            "author_answer": forms.TextInput(attrs={
+                'placeholder': "Votre Nom",
+            }),
             "content_answer": forms.Textarea(attrs={
                 # 'class' : 'ma-class'
-                'row': 2,
-                'cols': 30,
+                'rows': 2,
+                'cols': 50,
                 'placeholder': 'Répondez...',
             })
         }
